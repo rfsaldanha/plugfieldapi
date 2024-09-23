@@ -15,7 +15,7 @@ login <- function(username = NULL, password = NULL, x_api_key = NULL){
   
   # Request specification
   req <- httr2::request(base_url = server_url) |>
-    httr2::req_url_path("login") |>
+    httr2::req_url_path_append("/login") |>
     httr2::req_headers("x-api-key" = x_api_key) |>
     httr2::req_body_json(
       list(
