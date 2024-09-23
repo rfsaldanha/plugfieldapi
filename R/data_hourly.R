@@ -1,4 +1,4 @@
-device_info <- function(deviceId){
+data_hourly <- function(deviceId, begin, end){
   # Try to login
   if(!check_login()){
     login()
@@ -6,8 +6,10 @@ device_info <- function(deviceId){
   
   # Request specification
   req <- httr2::request(base_url = server_url) |>
-    httr2::req_url_path("device") |>
-    httr2::req_url_path_append(deviceId) |>
+    httr2::req_url_path("data/hourly") |>
+    httr2::req_url_query(device = deviceId) |>
+    httr2::req_url_query(begin = begin) |>
+    httr2::req_url_query(end = end) |>
     httr2::req_headers("Content-Type" = "application/json") |>
     httr2::req_headers("Authorization" = the$access_token) |>
     httr2::req_headers("x-api-key" = the$x_api_key) |>
