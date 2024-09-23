@@ -1,0 +1,11 @@
+Package: plugfieldapi
+Title: Plugfield API wrapper to retrieve data from weather stations
+Version: 0.0.0.9000
+Authors@R: 
+    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Retrieve data from weather station sensors using the Plugfield API.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
