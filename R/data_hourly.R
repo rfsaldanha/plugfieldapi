@@ -20,8 +20,11 @@ data_hourly <- function(deviceId, begin, end){
   resp <- req |> 
     httr2::req_perform()
 
-  # Response to list
-  res <- resp |> httr2::resp_body_json()
+  # Response to data frame
+  res <- resp |>
+    httr2::resp_body_json() |>
+    purrr::reduce(dplyr::bind_rows) |>
+    tidyr::unnest_wider(col = additionalSensors)
 
   return(res)
 }
