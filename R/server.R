@@ -1,1 +1,0 @@
-server <- "https://prod-api.plugfield.com.br"
