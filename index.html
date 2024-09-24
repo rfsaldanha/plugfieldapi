@@ -60,21 +60,33 @@
 <div class="section level2">
 <h2 id="login">Login<a class="anchor" aria-label="anchor" href="#login"></a>
 </h2>
-<p>To retrieve data from weather stations you need to be logged in. You will need an username, password and the x-api-key, provided by Plugfield. You may pass this information manually to the <code><a href="reference/login.html">login()</a></code> function, or store it at the renviron file (<code>usethis::edit_r_environ()</code>), using the keys <code>plugfield_username</code>, <code>plugfield_password</code> and <code>plugfield_x_api_key</code>.</p>
-<p>Then, use the login function once, per session.</p>
+<p>To retrieve data from weather stations you need to be logged in. You will need an username, password and the x-api-key, provided by Plugfield.</p>
+<div class="section level3">
+<h3 id="manual-login">Manual login<a class="anchor" aria-label="anchor" href="#manual-login"></a>
+</h3>
+<p>You may pass this information manually to the <code><a href="reference/login.html">login()</a></code> function</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/login.html">login</a></span><span class="op">(</span>username <span class="op">=</span> <span class="st">"your_username"</span>, password <span class="op">=</span> <span class="st">"your_password"</span> , x_api_key <span class="op">=</span> <span class="st">"your_x_api_key"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="automatic-login">Automatic login<a class="anchor" aria-label="anchor" href="#automatic-login"></a>
+</h3>
+<p>Store the login credentials at the renviron file (<code>?usethis::edit_r_environ()</code>), using the keys <code>plugfield_username</code>, <code>plugfield_password</code> and <code>plugfield_x_api_key</code>. Do not forget to reset your R session.</p>
+<p>Then, the login function will automatically load your credentials information.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/login.html">login</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>If you forget to login, the data retrieval will try login automatically, using the renviron keys.</p>
+<p>If you forget to login, the data retrieval functions will try login automatically, using the renviron keys.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="devices-and-sensors">Devices and sensors<a class="anchor" aria-label="anchor" href="#devices-and-sensors"></a>
 </h2>
-<p>Use the <code>device_list</code> function to retrieve a list of devices connected to your account. Then, with a device id, use the function <code>device_info</code> to retrieve information of a specific device and the <code>device_sensors</code> function to get a table of sensors that are available in a specific device.</p>
+<p>Use the <code><a href="reference/device_list.html">device_list()</a></code> function to retrieve a list of devices connected to your account. Then, with a device id, use the function <code><a href="reference/device_info.html">device_info()</a></code> to retrieve information of a specific device and the <code>device_sensors</code> function to get a table of sensors that are available in a specific device.</p>
 </div>
 <div class="section level2">
 <h2 id="retrieve-data">Retrieve data<a class="anchor" aria-label="anchor" href="#retrieve-data"></a>
 </h2>
-<p>You may use the functions <code>data_daily</code> and <code>data_hourly</code> to retrieve time-aggregated data, or the function <code>data_sensor</code> to retrieve granular data from a specific sensor.</p>
+<p>You may use the functions <code><a href="reference/data_daily.html">data_daily()</a></code> and <code><a href="reference/data_hourly.html">data_hourly()</a></code> to retrieve time-aggregated data, or the function <code><a href="reference/data_sensor.html">data_sensor()</a></code> to retrieve granular data from a specific sensor.</p>
 </div>
 <div class="section level2">
 <h2 id="api-usage-limits">API usage limits<a class="anchor" aria-label="anchor" href="#api-usage-limits"></a>
