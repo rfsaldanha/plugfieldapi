@@ -7,3 +7,6 @@ retry_max_tries <- 3
 
 # Create enviroment to handle login information
 the <- new.env(parent = emptyenv())
+
+# Time zone
+tz <- "Brazil/East"
