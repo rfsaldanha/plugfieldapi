@@ -1,3 +1,7 @@
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/rfsaldanha/plugfieldapi/actions/workflows/R-CMD-check.yaml/badge.svghttps://github.com/rfsaldanha/plugfieldapi/actions/workflows/R-CMD-check.yaml/badge.svghttps://github.com/rfsaldanha/plugfieldapi/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rfsaldanha/plugfieldapi/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 # plugfieldapi
 
 This package contains function to access the [Plugfield](https://portal.plugfield.com.br/) API and retrieve data from weather stations.
