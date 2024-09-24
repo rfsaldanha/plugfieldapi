@@ -17,4 +17,7 @@ Imports:
     dplyr,
     httr2,
     janitor,
-    purrr
+    lubridate,
+    purrr,
+    rlang,
+    tidyr

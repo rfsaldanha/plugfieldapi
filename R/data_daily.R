@@ -7,6 +7,7 @@
 #'
 #' @return a list or a tibble, depending on the `as_list` argument.
 #' @export
+#' @importFrom rlang .data
 data_daily <- function(deviceId, begin, end, as_list = FALSE){
   # Try to login
   if(!check_login()){
@@ -51,21 +52,21 @@ data_daily <- function(deviceId, begin, end, as_list = FALSE){
 
     # Additional sensors values
     res4 <- res2 |>
-      tidyr::unnest_wider(col = additionalSensors) |>
+      tidyr::unnest_wider(col = "additionalSensors") |>
       tidyr::pivot_wider(
-        id_cols = id,
-        names_from = sensorName,
-        values_from = sensorValue
+        id_cols = "id",
+        names_from = "sensorName",
+        values_from = "sensorValue"
       )
 
     # Additional sensors counts
     res5 <- res2 |>
-      tidyr::unnest_wider(col = additionalSensors) |>
-      dplyr::mutate(sensorName = paste(sensorName, "count")) |>
+      tidyr::unnest_wider(col = "additionalSensors") |>
+      dplyr::mutate(sensorName = paste(.data$sensorName, "count")) |>
       tidyr::pivot_wider(
-        id_cols = id,
-        names_from = sensorName,
-        values_from = sensorValueCount
+        id_cols = "id",
+        names_from = "sensorName",
+        values_from = "sensorValueCount"
       )
 
     # Join data
@@ -73,8 +74,8 @@ data_daily <- function(deviceId, begin, end, as_list = FALSE){
       dplyr::left_join(res5, by = "id") |>
       # Treat date and time fieds
       dplyr::mutate(
-        localDateTime = lubridate::as_datetime(localDateTime),
-        timestamp = lubridate::as_datetime(timestamp/1000, tz = tz)
+        localDateTime = lubridate::as_datetime(.data$localDateTime),
+        timestamp = lubridate::as_datetime(.data$timestamp/1000, tz = tz)
       ) |>
       # Format variable names
       janitor::clean_names()
