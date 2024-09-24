@@ -1,9 +1,18 @@
+#' Hourly aggregated data
+#'
+#' @param deviceId integer. A device identification code (id).
+#' @param begin character. Start date and time. Use the format `day/month/year hour`. Example: `20/09/2024 09`
+#' @param end character. End date and time. Use the format `day/month/year hour`. Example: `20/09/2024 09`
+#' @param as_list logical. If `TRUE` the function will return a list, otherwise, a tibble.
+#'
+#' @return a list or a tibble, depending on the `as_list` argument.
+#' @export
 data_hourly <- function(deviceId, begin, end, as_list = FALSE){
   # Try to login
   if(!check_login()){
     login()
-  }  
-  
+  }
+
   # Request specification
   req <- httr2::request(base_url = server_url) |>
     httr2::req_url_path("data/hourly") |>
@@ -15,9 +24,9 @@ data_hourly <- function(deviceId, begin, end, as_list = FALSE){
     httr2::req_headers("x-api-key" = the$x_api_key) |>
     httr2::req_throttle(rate = throttle_rate, realm = server_url) |>
     httr2::req_retry(max_tries = retry_max_tries)
-  
+
   # Request perform
-  resp <- req |> 
+  resp <- req |>
     httr2::req_perform()
 
   # Response to data frame
@@ -58,7 +67,7 @@ data_hourly <- function(deviceId, begin, end, as_list = FALSE){
         names_from = sensorName,
         values_from = sensorValueCount
       )
-    
+
     # Join data
     res6 <- dplyr::inner_join(res3, res4, by = "id") |>
       dplyr::left_join(res5, by = "id") |>

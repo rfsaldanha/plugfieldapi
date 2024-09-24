@@ -1,9 +1,18 @@
+#' Daily aggregated data
+#'
+#' @param deviceId integer. A device identification code (id).
+#' @param begin character. Start date. Use the format `day/month/year`. Example: `20/09/2024`
+#' @param end character. End date. Use the format `day/month/year`. Example: `20/09/2024`
+#' @param as_list logical. If `TRUE` the function will return a list, otherwise, a tibble.
+#'
+#' @return a list or a tibble, depending on the `as_list` argument.
+#' @export
 data_daily <- function(deviceId, begin, end, as_list = FALSE){
   # Try to login
   if(!check_login()){
     login()
-  }  
-  
+  }
+
   # Request specification
   req <- httr2::request(base_url = server_url) |>
     httr2::req_url_path("data/daily") |>
@@ -15,13 +24,13 @@ data_daily <- function(deviceId, begin, end, as_list = FALSE){
     httr2::req_headers("x-api-key" = the$x_api_key) |>
     httr2::req_throttle(rate = throttle_rate, realm = server_url) |>
     httr2::req_retry(max_tries = retry_max_tries)
-  
+
   # Request perform
-  resp <- req |> 
+  resp <- req |>
     httr2::req_perform()
 
   # Response to list
-  res <- resp |> 
+  res <- resp |>
     httr2::resp_body_json()
 
   # List or data frame
@@ -48,7 +57,7 @@ data_daily <- function(deviceId, begin, end, as_list = FALSE){
         names_from = sensorName,
         values_from = sensorValue
       )
-    
+
     # Additional sensors counts
     res5 <- res2 |>
       tidyr::unnest_wider(col = additionalSensors) |>

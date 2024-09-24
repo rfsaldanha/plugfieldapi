@@ -1,3 +1,9 @@
+#' Device list
+#'
+#' Returns a list of available devices, including device's information and last updated data for a dashboard.
+#'
+#' @return a list.
+#' @export
 device_list <- function(){
   # Try to login
   if(!check_login()){
@@ -12,7 +18,7 @@ device_list <- function(){
     httr2::req_headers("x-api-key" = the$x_api_key) |>
     httr2::req_throttle(rate = throttle_rate, realm = server_url) |>
     httr2::req_retry(max_tries = retry_max_tries)
-  
+
   # Request perform
   resps <- httr2::req_perform_iterative(
     req |> httr2::req_url_query(limit = 1),

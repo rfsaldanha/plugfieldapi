@@ -1,3 +1,13 @@
+#' Login on Plugfield
+#'
+#' You may supply manually your username, password and x-api-key, or store them as values at the renviron document. For this, use the function `usethis::edit_r_environ()` and add the following keys: `plugfield_username`, `plugfield_password` and `plugfield_x_api_key`.
+#' 
+#' @param username character. Username, usually an e-mail.
+#' @param password character.
+#' @param x_api_key character. Provided by Plugfield.
+#'
+#' @return no object is return due the nature of the function.
+#' @export
 login <- function(username = NULL, password = NULL, x_api_key = NULL){
   # Check if is already logged in
   if(check_login()){
@@ -11,7 +21,7 @@ login <- function(username = NULL, password = NULL, x_api_key = NULL){
     password <- login_info$password
     x_api_key <- login_info$x_api_key
   }
-  
+
   # Request specification
   req <- httr2::request(base_url = server_url) |>
     httr2::req_url_path_append("/login") |>
@@ -26,7 +36,7 @@ login <- function(username = NULL, password = NULL, x_api_key = NULL){
       httr2::req_retry(max_tries = retry_max_tries)
 
   # Request perform
-  resp <- req |> 
+  resp <- req |>
     httr2::req_perform()
 
   # Response to list
