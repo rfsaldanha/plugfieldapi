@@ -11,9 +11,9 @@ data_sensor(deviceId, sensor, time = NULL, timeMax = NULL)
 
 \item{sensor}{integer. A sensor code, as informed on \code{\link[=device_sensors]{device_sensors()}}.}
 
-\item{time}{character. Start date and time. If not provided, the function will return data from the last day. Use the format \verb{day/month/year hour}. Example: \verb{20/09/2024 09}}
+\item{time}{character. Start date and time. If not provided, the function will return data from the last day. Use the format \verb{day/month/year hour:minute:second}. Example: \verb{20/09/2024 09:59:59}}
 
-\item{timeMax}{character. End date and time. If not provided, the function will return data from the last day. Use the format \verb{day/month/year hour}. Example: \verb{20/09/2024 09}}
+\item{timeMax}{character. End date and time. If not provided, the function will return data from the last day. Use the format \verb{day/month/year hour:minute:second}. Example: \verb{20/09/2024 09:59:59}}
 }
 \value{
 a tibble.
