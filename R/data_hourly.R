@@ -40,24 +40,36 @@ data_hourly <- function(deviceId, begin, end, as_list = FALSE){
       dplyr::select(-"additionalSensors") |>
       dplyr::distinct()
 
-    # Pivot additional sensors
+    # Additional sensors values
     res4 <- res2 |>
       tidyr::unnest_wider(col = additionalSensors) |>
       tidyr::pivot_wider(
         id_cols = id,
         names_from = sensorName,
         values_from = sensorValue
-      ) |>
-      janitor::clean_names()
+      )
+
+    # Additional sensors counts
+    res5 <- res2 |>
+      tidyr::unnest_wider(col = additionalSensors) |>
+      dplyr::mutate(sensorName = paste(sensorName, "count")) |>
+      tidyr::pivot_wider(
+        id_cols = id,
+        names_from = sensorName,
+        values_from = sensorValueCount
+      )
     
     # Join data
-    res5 <- dplyr::inner_join(res3, res4, by = "id") |>
+    res6 <- dplyr::inner_join(res3, res4, by = "id") |>
+      dplyr::left_join(res5, by = "id") |>
       # Treat date and time fieds
       dplyr::mutate(
         localDateTime = lubridate::as_datetime(localDateTime),
         timestamp = lubridate::as_datetime(timestamp/1000, tz = tz)
-      )
+      ) |>
+      # Format variable names
+      janitor::clean_names()
 
-    return(res5)
+    return(res6)
   }
 }
