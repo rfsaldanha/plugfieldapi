@@ -1,4 +1,4 @@
-device_info_sensors <- function(deviceId){
+device_sensors <- function(deviceId){
   # Try to login
   if(!check_login()){
     login()
