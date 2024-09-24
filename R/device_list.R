@@ -27,5 +27,5 @@ device_list <- function(){
   res <- resps |> httr2::resps_successes() |>
     httr2::resps_data(\(resp) httr2::resp_body_json(resp))
 
-  return(res)
+  return(res$deviceList)
 }
