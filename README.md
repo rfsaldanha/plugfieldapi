@@ -18,15 +18,19 @@ To retrieve data from weather stations you need to be logged in. You will need a
 
 ### Manual login
 
-You may pass this information manually to the `login()` function
+You may pass your credentials manually to the `login()` function
 
 ```r
-login(username = "your_username", password = "your_password" , x_api_key = "your_x_api_key")
+login(
+    username = "your_username", 
+    password = "your_password" , 
+    x_api_key = "your_x_api_key"
+)
 ```
 
 ### Automatic login
 
-Store the login credentials at the renviron file (`?usethis::edit_r_environ()`), using the keys `plugfield_username`, `plugfield_password` and `plugfield_x_api_key`. Do not forget to reset your R session.
+Store the login credentials at the renviron file (`usethis::edit_r_environ()`), using the keys `plugfield_username`, `plugfield_password` and `plugfield_x_api_key`. Do not forget to reset your R session.
 
 Then, the login function will automatically load your credentials information.
 
