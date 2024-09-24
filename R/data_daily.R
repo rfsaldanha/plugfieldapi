@@ -25,15 +25,21 @@ data_daily <- function(deviceId, begin, end, as_list = FALSE){
 
   # List or data frame
   if(as_list){
+    # Return list
     return(res)
   } else {
+    # Return data frame
+
+    # List to data frame
     res2 <- res |>
       purrr::reduce(dplyr::bind_rows)
 
+    # Isolate sensors and remove duplicates
     res3 <- res2 |>
       dplyr::select(-"additionalSensors") |>
       dplyr::distinct()
 
+    # Pivot additional sensors
     res4 <- res2 |>
       tidyr::unnest_wider(col = additionalSensors) |>
       tidyr::pivot_wider(
@@ -43,7 +49,13 @@ data_daily <- function(deviceId, begin, end, as_list = FALSE){
       ) |>
       janitor::clean_names()
 
-    res5 <- dplyr::inner_join(res3, res4, by = "id")
+    # Join data
+    res5 <- dplyr::inner_join(res3, res4, by = "id") |>
+      # Treat date and time fieds
+      dplyr::mutate(
+        localDateTime = lubridate::as_datetime(localDateTime),
+        timestamp = lubridate::as_datetime(timestamp/1000, tz = tz)
+      )
 
     return(res5)
   }
