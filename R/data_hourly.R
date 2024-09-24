@@ -51,7 +51,12 @@ data_hourly <- function(deviceId, begin, end, as_list = FALSE){
       janitor::clean_names()
     
     # Join data
-    res5 <- dplyr::inner_join(res3, res4, by = "id")
+    res5 <- dplyr::inner_join(res3, res4, by = "id") |>
+      # Treat date and time fieds
+      dplyr::mutate(
+        localDateTime = lubridate::as_datetime(localDateTime),
+        timestamp = lubridate::as_datetime(timestamp/1000, tz = tz)
+      )
 
     return(res5)
   }
