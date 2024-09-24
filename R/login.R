@@ -4,7 +4,6 @@ login <- function(username = NULL, password = NULL, x_api_key = NULL){
     cli::cli_abort("You are already logged in.")
   }
 
-  
   # Try to get login information from renviron
   if(all(is.null(username), is.null(password), is.null(x_api_key))){
     login_info <- get_login_info_renviron()
