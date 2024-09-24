@@ -1,5 +1,5 @@
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/rfsaldanha/plugfieldapi/actions/workflows/R-CMD-check.yaml/badge.svghttps://github.com/rfsaldanha/plugfieldapi/actions/workflows/R-CMD-check.yaml/badge.svghttps://github.com/rfsaldanha/plugfieldapi/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rfsaldanha/plugfieldapi/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/rfsaldanha/plugfieldapi/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rfsaldanha/plugfieldapi/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 # plugfieldapi
@@ -30,7 +30,17 @@ login(
 
 ### Automatic login
 
-Store the login credentials at the renviron file (`usethis::edit_r_environ()`), using the keys `plugfield_username`, `plugfield_password` and `plugfield_x_api_key`. Do not forget to reset your R session.
+Store the login credentials at the renviron file (`usethis::edit_r_environ()`), using the keys `plugfield_username`, `plugfield_password` and `plugfield_x_api_key`. 
+
+Example of `.Renviron` file edit.
+
+```
+plugfield_username = "your_username"
+plugfield_password = "your_password"
+plugfield_x_api_key = "your_x_api_key"
+```
+
+*Do not forget to restart your R session after saving the file.*
 
 Then, the login function will automatically load your credentials information.
 
