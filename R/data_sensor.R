@@ -4,8 +4,8 @@
 #'
 #' @param deviceId integer. A device identification code (id).
 #' @param sensor integer. A sensor code, as informed on [device_sensors()].
-#' @param time character. Start date and time. If not provided, the function will return data from the last day. Use the format `day/month/year hour`. Example: `20/09/2024 09`
-#' @param timeMax character. End date and time. If not provided, the function will return data from the last day. Use the format `day/month/year hour`. Example: `20/09/2024 09`
+#' @param time character. Start date and time. If not provided, the function will return data from the last day. Use the format `day/month/year hour:minute:second`. Example: `20/09/2024 09:59:59`
+#' @param timeMax character. End date and time. If not provided, the function will return data from the last day. Use the format `day/month/year hour:minute:second`. Example: `20/09/2024 09:59:59`
 #'
 #' @return a tibble.
 #' @export
@@ -31,7 +31,7 @@ data_sensor <- function(deviceId, sensor, time = NULL, timeMax = NULL){
   # time
   if(!is.null(time)){
     # Convert time to miliseconds
-    time <- lubridate::as_datetime(time, format = "%d/%m/%Y %H", tz = "Brazil/East")
+    time <- lubridate::as_datetime(time, format = "%d/%m/%Y %H:%M:%S", tz = "Brazil/East")
     time <- as.numeric(time)*1000
 
     req <- req |>
@@ -41,7 +41,7 @@ data_sensor <- function(deviceId, sensor, time = NULL, timeMax = NULL){
   # timeMax
   if(!is.null(timeMax)){
     # Convert time to miliseconds
-    timeMax <- lubridate::as_datetime(timeMax, format = "%d/%m/%Y %H", tz = "Brazil/East")
+    timeMax <- lubridate::as_datetime(timeMax, format = "%d/%m/%Y %H:%M:%S", tz = "Brazil/East")
     timeMax <- as.numeric(timeMax)*1000
 
     req <- req |>
