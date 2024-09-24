@@ -65,14 +65,18 @@
 <div class="section level3">
 <h3 id="manual-login">Manual login<a class="anchor" aria-label="anchor" href="#manual-login"></a>
 </h3>
-<p>You may pass this information manually to the <code><a href="reference/login.html">login()</a></code> function</p>
+<p>You may pass your credentials manually to the <code><a href="reference/login.html">login()</a></code> function</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/login.html">login</a></span><span class="op">(</span>username <span class="op">=</span> <span class="st">"your_username"</span>, password <span class="op">=</span> <span class="st">"your_password"</span> , x_api_key <span class="op">=</span> <span class="st">"your_x_api_key"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/login.html">login</a></span><span class="op">(</span></span>
+<span>    username <span class="op">=</span> <span class="st">"your_username"</span>, </span>
+<span>    password <span class="op">=</span> <span class="st">"your_password"</span> , </span>
+<span>    x_api_key <span class="op">=</span> <span class="st">"your_x_api_key"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="automatic-login">Automatic login<a class="anchor" aria-label="anchor" href="#automatic-login"></a>
 </h3>
-<p>Store the login credentials at the renviron file (<code>?usethis::edit_r_environ()</code>), using the keys <code>plugfield_username</code>, <code>plugfield_password</code> and <code>plugfield_x_api_key</code>. Do not forget to reset your R session.</p>
+<p>Store the login credentials at the renviron file (<code>usethis::edit_r_environ()</code>), using the keys <code>plugfield_username</code>, <code>plugfield_password</code> and <code>plugfield_x_api_key</code>. Do not forget to reset your R session.</p>
 <p>Then, the login function will automatically load your credentials information.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/login.html">login</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
