@@ -1,4 +1,4 @@
-data_hourly <- function(deviceId, begin, end){
+data_hourly <- function(deviceId, begin, end, as_list = FALSE){
   # Try to login
   if(!check_login()){
     login()
@@ -22,9 +22,30 @@ data_hourly <- function(deviceId, begin, end){
 
   # Response to data frame
   res <- resp |>
-    httr2::resp_body_json() |>
-    purrr::reduce(dplyr::bind_rows) |>
-    tidyr::unnest_wider(col = additionalSensors)
+    httr2::resp_body_json()
 
-  return(res)
+  # List or data frame
+  if(as_list){
+    return(res)
+  } else {
+    res2 <- res |>
+      purrr::reduce(dplyr::bind_rows)
+
+    res3 <- res2 |>
+      dplyr::select(-"additionalSensors") |>
+      dplyr::distinct()
+
+    res4 <- res2 |>
+      tidyr::unnest_wider(col = additionalSensors) |>
+      tidyr::pivot_wider(
+        id_cols = id,
+        names_from = sensorName,
+        values_from = sensorValue
+      ) |>
+      janitor::clean_names()
+
+    res5 <- dplyr::inner_join(res3, res4, by = "id")
+
+    return(res5)
+  }
 }
