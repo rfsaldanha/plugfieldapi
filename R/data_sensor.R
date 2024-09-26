@@ -31,7 +31,7 @@ data_sensor <- function(deviceId, sensor, time = NULL, timeMax = NULL){
   # time
   if(!is.null(time)){
     # Convert time to miliseconds
-    time <- lubridate::as_datetime(time, format = "%d/%m/%Y %H:%M:%S", tz = "Brazil/East")
+    time <- lubridate::as_datetime(time, format = "%d/%m/%Y %H:%M:%S")
     time <- as.numeric(time)*1000
 
     req <- req |>
@@ -41,7 +41,7 @@ data_sensor <- function(deviceId, sensor, time = NULL, timeMax = NULL){
   # timeMax
   if(!is.null(timeMax)){
     # Convert time to miliseconds
-    timeMax <- lubridate::as_datetime(timeMax, format = "%d/%m/%Y %H:%M:%S", tz = "Brazil/East")
+    timeMax <- lubridate::as_datetime(timeMax, format = "%d/%m/%Y %H:%M:%S")
     timeMax <- as.numeric(timeMax)*1000
 
     req <- req |>
@@ -67,7 +67,7 @@ data_sensor <- function(deviceId, sensor, time = NULL, timeMax = NULL){
     purrr::reduce(dplyr::bind_rows) |>
     # Treat date and time fieds
     dplyr::mutate(
-      time = lubridate::as_datetime(time/1000, tz = tz)
+      time = lubridate::as_datetime(time/1000)
     ) |>
     # Format variable names
     janitor::clean_names()

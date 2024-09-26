@@ -75,7 +75,7 @@ data_hourly <- function(deviceId, begin, end, as_list = FALSE){
       # Treat date and time fieds
       dplyr::mutate(
         localDateTime = lubridate::as_datetime(.data$localDateTime),
-        timestamp = lubridate::as_datetime(.data$timestamp/1000, tz = tz)
+        timestamp = lubridate::as_datetime(.data$timestamp/1000)
       ) |>
       # Format variable names
       janitor::clean_names()
