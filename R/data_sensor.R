@@ -48,29 +48,44 @@ data_sensor <- function(deviceId, sensor, time = NULL, timeMax = NULL){
       httr2::req_url_query(timeMax = timeMax)
   }
 
-  # Request perform with pagination
-  resps <- httr2::req_perform_iterative(
-    req |> httr2::req_url_query(limit = 1),
-    next_req = httr2::iterate_with_offset(
-      "page_index",
-      resp_pages = function(resp) httr2::resp_body_json(resp)$pagination$totalPages
-    ),
-    max_reqs = Inf
-  )
+  # Resquest perform without pagination
+  res <- httr2::req_perform(req) |>
+    httr2::resp_body_json()
 
-  # Response to list
-  res <- resps |> httr2::resps_successes() |>
-    httr2::resps_data(\(resp) httr2::resp_body_json(resp))
+  # Check for paginated results
+  if(res$pagination$totalPages > 1){
+    # Request perform with pagination
+    resps <- httr2::req_perform_iterative(
+      req |> httr2::req_url_query(limit = 1),
+      next_req = httr2::iterate_with_offset(
+        "page_index",
+        resp_pages = function(resp) httr2::resp_body_json(resp)$pagination$totalPages
+      ),
+      max_reqs = Inf
+    )
 
-  # List to data frame
-  res2 <- res$data |>
-    purrr::reduce(dplyr::bind_rows) |>
-    # Treat date and time fieds
+    # Response to list
+    res <- resps |> httr2::resps_successes() |>
+      httr2::resps_data(\(resp) httr2::resp_body_json(resp))
+  }
+
+  if(length(res$data) == 0){
+    return(tibble::tibble())
+  } else if(length(res$data) == 1){
+    res2 <- res$data |> 
+      dplyr::bind_rows()
+  } else {
+      res2 <- res$data |>
+        purrr::reduce(dplyr::bind_rows)
+  }
+
+  res3 <- res2 |> 
     dplyr::mutate(
+      # Treat date and time fieds
       time = lubridate::as_datetime(time/1000)
     ) |>
     # Format variable names
     janitor::clean_names()
-
-  return(res2)
+  
+  return(res3)
 }
