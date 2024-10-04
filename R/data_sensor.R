@@ -70,7 +70,7 @@ data_sensor <- function(deviceId, sensor, time = NULL, timeMax = NULL){
   }
 
   if(length(res$data) == 0){
-    return(tibble::tibble())
+    cli::cli_abort("No data available from sensor.")
   } else if(length(res$data) == 1){
     res2 <- res$data |> 
       dplyr::bind_rows()

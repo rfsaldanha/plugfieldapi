@@ -20,6 +20,5 @@ Imports:
     lubridate,
     purrr,
     rlang,
-    tibble,
     tidyr
 URL: https://rfsaldanha.github.io/plugfieldapi/
